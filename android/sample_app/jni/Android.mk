@@ -30,15 +30,17 @@
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := test_google_breakpad
-LOCAL_SRC_FILES := test_breakpad.cpp
+LOCAL_MODULE := breakpad
+LOCAL_SRC_FILES := breakpadutils.cpp
 LOCAL_STATIC_LIBRARIES += breakpad_client
-include $(BUILD_EXECUTABLE)
+# LOCAL_CFLAGS+= -pie -fPIE
+# LOCAL_LDFLAGS+= -pie -fPIE
+include $(BUILD_SHARED_LIBRARY)
 
 # If NDK_MODULE_PATH is defined, import the module, otherwise do a direct
 # includes. This allows us to build in all scenarios easily.
-ifneq ($(NDK_MODULE_PATH),)
-  $(call import-module,google_breakpad)
-else
+#ifneq ($(NDK_MODULE_PATH),)
+ # $(call import-module,google_breakpad)
+#else
   include $(LOCAL_PATH)/../../google_breakpad/Android.mk
-endif
+#endif
